@@ -4,6 +4,7 @@
 
 @section('content')
 <style>
+    /* CSS yang sama persis seperti sebelumnya */
     .stat-card {
         transition: all 0.3s ease;
         position: relative;
@@ -147,8 +148,48 @@
         box-shadow: 0 15px 20px -10px rgba(102, 126, 234, 0.4);
     }
     
-    .total-unit-card {
+    /* Style SIMPLE untuk real-time clock */
+    #realtime-clock-container {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 15px 25px;
+        border-radius: 50px;
+        display: inline-block;
+        margin-top: 15px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    #realtime-clock {
+        font-family: 'Courier New', monospace;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        letter-spacing: 5px;
+    }
+    
+    #realtime-date {
+        color: rgba(255,255,255,0.9);
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+    
+    .live-badge {
+        background: #ff4444;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: 15px;
+        animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
     }
 </style>
 
@@ -160,6 +201,20 @@
                 Dashboard Admin
             </h1>
             <p class="text-gray-600 mt-1">Kelola dan pantau semua rating layanan kampus</p>
+            
+            <!-- REAL TIME CLOCK - VERSION SEDERHANA TAPI PASTI JALAN -->
+            <div id="realtime-clock-container">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div>
+                        <div id="realtime-clock">--:--:--</div>
+                        <div id="realtime-date">--, -- --- ----</div>
+                    </div>
+                    <div class="live-badge">
+                        <i class="fas fa-circle"></i>
+                        <span>LIVE</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="flex space-x-3">
             <a href="{{ route('admin.units') }}" 
@@ -174,6 +229,9 @@
 
 <!-- Statistik Cards dengan Desain Modern -->
 @php
+    // Set timezone ke WIB untuk semua operasi tanggal
+    Carbon\Carbon::setLocale('id');
+    
     // Hitung rating counts sekali untuk digunakan di beberapa tempat
     $ratingCounts = [
         4 => $ratings->where('rating', 4)->count(),
@@ -202,7 +260,7 @@
             <div>
                 <p class="text-blue-100 text-sm font-semibold uppercase tracking-wider">Total Rating</p>
                 <h3 class="text-4xl font-bold mt-2">{{ $totalRatings }}</h3>
-                <p class="text-blue-200 text-sm mt-2">
+                <p class="text-blue-200 text-sm mt-2 flex items-center">
                     <i class="fas fa-arrow-up mr-1"></i>
                     {{ $ratings->total() }} tampil
                 </p>
@@ -219,7 +277,7 @@
             <div>
                 <p class="text-green-100 text-sm font-semibold uppercase tracking-wider">Rata-rata Rating</p>
                 <h3 class="text-4xl font-bold mt-2">{{ number_format($averageRating, 1) }}</h3>
-                <p class="text-green-200 text-sm mt-2">
+                <p class="text-green-200 text-sm mt-2 flex items-center">
                     <i class="fas fa-chart-line mr-1"></i>
                     dari maksimal 4.0
                 </p>
@@ -236,7 +294,7 @@
             <div>
                 <p class="text-purple-100 text-sm font-semibold uppercase tracking-wider">Total Unit</p>
                 <h3 class="text-4xl font-bold mt-2">{{ $totalUnits ?? $ratings->groupBy('unit_id')->count() }}</h3>
-                <p class="text-purple-200 text-sm mt-2">
+                <p class="text-purple-200 text-sm mt-2 flex items-center">
                     <i class="fas fa-building mr-1"></i>
                     unit layanan
                 </p>
@@ -247,13 +305,13 @@
         </div>
     </div>
     
-    <!-- Rating Tertinggi Card (diperbaiki) -->
+    <!-- Rating Tertinggi Card -->
     <div class="stat-card bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-2xl shadow-lg p-6">
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-yellow-100 text-sm font-semibold uppercase tracking-wider">Rating Tertinggi</p>
                 <h3 class="text-4xl font-bold mt-2">{{ $highestRating }} ★</h3>
-                <p class="text-yellow-200 text-sm mt-2">
+                <p class="text-yellow-200 text-sm mt-2 flex items-center">
                     <i class="fas fa-star mr-1"></i>
                     {{ $highestRatingCount }} rating
                 </p>
@@ -293,7 +351,7 @@
         @endforeach
     </div>
     
-    <!-- Quick Actions (TANPA EKSPOR) -->
+    <!-- Quick Actions -->
     <div class="bg-white rounded-2xl shadow-lg p-6 lg:col-span-2">
         <h3 class="text-lg font-semibold mb-4 flex items-center">
             <i class="fas fa-bolt text-yellow-500 mr-2"></i>
@@ -387,8 +445,11 @@
                                 <i class="far fa-envelope mr-1"></i>{{ $rating->email }}
                             </span>
                             <span class="text-sm text-gray-400">•</span>
-                            <span class="text-sm text-gray-500">
-                                <i class="far fa-calendar mr-1"></i>{{ $rating->created_at->format('d M Y H:i') }}
+                            <span class="text-sm text-gray-500 flex items-center">
+                                <i class="far fa-calendar mr-1"></i>
+                                <!-- Tampilan waktu dalam WIB -->
+                                {{ $rating->created_at->timezone('Asia/Jakarta')->isoFormat('DD MMM Y HH:mm') }} 
+                                <span class="ml-1 text-xs bg-gray-200 px-1.5 py-0.5 rounded">WIB</span>
                             </span>
                         </div>
                         <div class="flex items-center mt-2 space-x-2">
@@ -429,7 +490,11 @@
                     <div class="flex-1">
                         <div class="flex items-center justify-between mb-1">
                             <span class="font-semibold text-purple-600">Admin</span>
-                            <span class="text-xs text-gray-500">{{ $balasan->created_at->diffForHumans() }}</span>
+                            <span class="text-xs text-gray-500 flex items-center">
+                                <!-- Waktu balasan dalam WIB -->
+                                {{ $balasan->created_at->timezone('Asia/Jakarta')->diffForHumans() }}
+                                <span class="ml-1 text-xs">(WIB)</span>
+                            </span>
                         </div>
                         <p class="text-gray-700">{{ $balasan->balasan }}</p>
                     </div>
@@ -475,14 +540,47 @@
     </div>
 </div>
 
-<!-- MODAL EKSPOR DATA DIHAPUS -->
-<!-- FORM EKSPOR DIHAPUS -->
-
 @endsection
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    // FUNGSI SEDERHANA TAPI PASTI JALAN - UPDATE JAM SETIAP DETIK
+    function updateClock() {
+        // Buat object date baru setiap detik
+        const now = new Date();
+        
+        // Ambil jam dalam format WIB
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        
+        // Format tanggal Indonesia
+        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        const dayName = days[now.getDay()];
+        const date = now.getDate();
+        const month = months[now.getMonth()];
+        const year = now.getFullYear();
+        
+        // Update elemen HTML
+        document.getElementById('realtime-clock').innerHTML = `${hours}:${minutes}:${seconds} <span style="font-size:1rem; margin-left:5px;">WIB</span>`;
+        document.getElementById('realtime-date').innerHTML = `${dayName}, ${date} ${month} ${year}`;
+        
+        // Log untuk debugging (bisa dihapus)
+        console.log('Clock updated:', hours, minutes, seconds);
+    }
+    
+    // JALANKAN FUNGSI UPDATE PERTAMA KALI
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Halaman dimuat, memulai real-time clock...');
+        updateClock(); // Update segera
+        
+        // SET INTERVAL 1 DETIK - INI YANG MEMBUAT DETIK BERJALAN TERUS
+        setInterval(updateClock, 1000);
+    });
+    
     // Filter functionality
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -534,8 +632,6 @@
             });
         });
     });
-
-    // FUNGSI EKSPOR DIHAPUS
     
     // Refresh data
     function refreshData() {
@@ -587,42 +683,5 @@
             this.style.height = (this.scrollHeight) + 'px';
         });
     });
-    
-    // Keyboard shortcut untuk refresh (Ctrl/Cmd + R)
-    document.addEventListener('keydown', function(e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
-            e.preventDefault();
-            refreshData();
-        }
-    });
-    
-    // Initialize tooltips
-    document.querySelectorAll('[data-tooltip]').forEach(el => {
-        el.addEventListener('mouseenter', function() {
-            const tooltip = this.dataset.tooltip;
-            // Simple tooltip implementation
-        });
-    });
-    
-    // Copy email to clipboard
-    document.querySelectorAll('.copy-email').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const email = this.dataset.email;
-            navigator.clipboard.writeText(email).then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Email Disalin!',
-                    text: 'Email berhasil disalin ke clipboard',
-                    timer: 1500,
-                    showConfirmButton: false,
-                    position: 'top-end',
-                    toast: true
-                });
-            });
-        });
-    });
 </script>
-
-<!-- KOMENTAR RUTE DIHAPUS -->
-
 @endpush
