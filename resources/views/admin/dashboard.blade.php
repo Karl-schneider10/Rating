@@ -4,7 +4,7 @@
 
 @section('content')
 <style>
-    /* CSS yang sama persis seperti sebelumnya */
+    /* Modern CampusPulse Theme */
     .stat-card {
         transition: all 0.3s ease;
         position: relative;
@@ -13,50 +13,23 @@
     
     .stat-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: rgba(255, 255, 255, 0.1);
-        transform: rotate(45deg) translate(-20%, 0);
-        transition: transform 0.6s ease;
-    }
-    
-    .stat-card:hover::before {
-        transform: rotate(45deg) translate(20%, 0);
-    }
-    
-    .rating-item {
-        transition: all 0.3s ease;
-        border-left: 4px solid transparent;
-    }
-    
-    .rating-item:hover {
-        transform: translateX(5px);
-        border-left-color: #667eea;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 20px 40px rgba(21, 28, 39, 0.15);
     }
     
     .badge-rating-4 {
-        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        background: #10b981;
     }
     
     .badge-rating-3 {
-        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        background: #f59e0b;
     }
     
     .badge-rating-2 {
-        background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+        background: #ef4444;
     }
     
     .badge-rating-1 {
-        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        background: #6b7280;
     }
     
     .reply-form {
@@ -75,49 +48,30 @@
     }
     
     .admin-reply {
-        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-        border-left: 4px solid #667eea;
+        background: #fef3e8;
+        border-left: 4px solid #F45B26;
+        border-radius: 1rem;
         animation: fadeIn 0.5s ease-out;
     }
     
     .filter-btn {
         transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        background: #f1f5f9;
+        color: #475569;
     }
     
-    .filter-btn::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-    
-    .filter-btn:hover::after,
-    .filter-btn.active::after {
-        transform: scaleX(1);
+    .filter-btn:hover {
+        background: #F45B26;
+        color: white;
     }
     
     .filter-btn.active {
-        color: #667eea;
-        font-weight: 600;
-    }
-    
-    .stat-icon {
-        width: 60px;
-        height: 60px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        backdrop-filter: blur(5px);
+        background: #F45B26;
+        color: white;
     }
     
     .rating-progress {
@@ -131,86 +85,99 @@
         height: 100%;
         border-radius: 4px;
         transition: width 0.3s ease;
+        background: #F45B26;
     }
     
     .quick-action {
         background: white;
-        border-radius: 15px;
+        border-radius: 1rem;
         padding: 1rem;
         transition: all 0.3s ease;
         cursor: pointer;
-        border: 2px solid transparent;
+        border: 1px solid #e5e7eb;
     }
     
     .quick-action:hover {
-        border-color: #667eea;
+        border-color: #F45B26;
         transform: translateY(-3px);
-        box-shadow: 0 15px 20px -10px rgba(102, 126, 234, 0.4);
+        box-shadow: 0px 20px 40px rgba(21, 28, 39, 0.08);
     }
     
-    /* Style SIMPLE untuk real-time clock */
+    /* Real-time clock */
     #realtime-clock-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #F45B26;
         padding: 15px 25px;
         border-radius: 50px;
         display: inline-block;
         margin-top: 15px;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        box-shadow: 0px 20px 40px rgba(244, 91, 38, 0.25);
     }
     
     #realtime-clock {
         font-family: 'Courier New', monospace;
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: bold;
         color: white;
-        text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        letter-spacing: 5px;
+        letter-spacing: 3px;
     }
     
     #realtime-date {
         color: rgba(255,255,255,0.9);
-        font-size: 1rem;
+        font-size: 0.875rem;
         margin-top: 5px;
     }
     
     .live-badge {
-        background: #ff4444;
+        background: #dc2626;
         color: white;
         padding: 5px 15px;
         border-radius: 30px;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: bold;
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        margin-left: 15px;
         animation: blink 1s infinite;
     }
     
     @keyframes blink {
         0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+        50% { opacity: 0.6; }
+    }
+    
+    .rating-item {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+        background: white;
+        border-radius: 1rem;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .rating-item:hover {
+        transform: translateX(5px);
+        border-left-color: #F45B26;
+        box-shadow: 0px 20px 40px rgba(21, 28, 39, 0.08);
     }
 </style>
 
 <!-- Header Dashboard -->
 <div class="mb-8">
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <h1 class="text-3xl font-bold text-[#151c27]">
                 Dashboard Admin
             </h1>
-            <p class="text-gray-600 mt-1">Kelola dan pantau semua rating layanan kampus</p>
+            <p class="text-slate-500 mt-1">Kelola dan pantau semua rating layanan kampus</p>
             
-            <!-- REAL TIME CLOCK - VERSION SEDERHANA TAPI PASTI JALAN -->
-            <div id="realtime-clock-container">
-                <div style="display: flex; align-items: center; gap: 20px;">
+            <!-- REAL TIME CLOCK -->
+            <div id="realtime-clock-container" class="mt-4">
+                <div class="flex items-center gap-4 flex-wrap">
                     <div>
                         <div id="realtime-clock">--:--:--</div>
                         <div id="realtime-date">--, -- --- ----</div>
                     </div>
                     <div class="live-badge">
-                        <i class="fas fa-circle"></i>
+                        <span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
                         <span>LIVE</span>
                     </div>
                 </div>
@@ -218,21 +185,19 @@
         </div>
         <div class="flex space-x-3">
             <a href="{{ route('admin.units') }}" 
-               class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 shadow-lg hover:shadow-xl transition duration-300">
-                <i class="fas fa-building"></i>
+               class="bg-[#F45B26] hover:bg-[#d1430b] text-white px-6 py-3 rounded-full font-semibold flex items-center space-x-2 shadow-lg shadow-[#F45B26]/20 transition-all active:scale-[0.98]">
+                <span class="material-symbols-outlined text-lg">business</span>
                 <span>Kelola Unit & Pelayanan</span>
-                <i class="fas fa-arrow-right text-sm"></i>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
             </a>
         </div>
     </div>
 </div>
 
-<!-- Statistik Cards dengan Desain Modern -->
+<!-- Statistik Cards -->
 @php
-    // Set timezone ke WIB untuk semua operasi tanggal
     Carbon\Carbon::setLocale('id');
     
-    // Hitung rating counts sekali untuk digunakan di beberapa tempat
     $ratingCounts = [
         4 => $ratings->where('rating', 4)->count(),
         3 => $ratings->where('rating', 3)->count(),
@@ -240,7 +205,6 @@
         1 => $ratings->where('rating', 1)->count(),
     ];
     
-    // Cari rating tertinggi (bukan hanya bintang 4)
     $highestRating = 0;
     $highestRatingCount = 0;
     foreach([4,3,2,1] as $star) {
@@ -253,82 +217,82 @@
     $totalRatingsCount = array_sum($ratingCounts);
 @endphp
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <!-- Total Rating Card -->
-    <div class="stat-card bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl shadow-lg p-6">
+    <div class="stat-card bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-blue-100 text-sm font-semibold uppercase tracking-wider">Total Rating</p>
-                <h3 class="text-4xl font-bold mt-2">{{ $totalRatings }}</h3>
-                <p class="text-blue-200 text-sm mt-2 flex items-center">
-                    <i class="fas fa-arrow-up mr-1"></i>
+                <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Rating</p>
+                <h3 class="text-3xl font-bold text-[#151c27] mt-2">{{ $totalRatings }}</h3>
+                <p class="text-slate-400 text-xs mt-2 flex items-center">
+                    <span class="material-symbols-outlined text-xs mr-1">trending_up</span>
                     {{ $ratings->total() }} tampil
                 </p>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-star"></i>
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#F45B26] text-2xl" style="font-variation-settings: 'FILL' 1;">star</span>
             </div>
         </div>
     </div>
     
     <!-- Rata-rata Rating Card -->
-    <div class="stat-card bg-gradient-to-br from-green-500 to-green-600 text-white rounded-2xl shadow-lg p-6">
+    <div class="stat-card bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-green-100 text-sm font-semibold uppercase tracking-wider">Rata-rata Rating</p>
-                <h3 class="text-4xl font-bold mt-2">{{ number_format($averageRating, 1) }}</h3>
-                <p class="text-green-200 text-sm mt-2 flex items-center">
-                    <i class="fas fa-chart-line mr-1"></i>
+                <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Rata-rata Rating</p>
+                <h3 class="text-3xl font-bold text-[#151c27] mt-2">{{ number_format($averageRating, 1) }}</h3>
+                <p class="text-slate-400 text-xs mt-2 flex items-center">
+                    <span class="material-symbols-outlined text-xs mr-1">show_chart</span>
                     dari maksimal 4.0
                 </p>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-chart-bar"></i>
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#F45B26] text-2xl">bar_chart</span>
             </div>
         </div>
     </div>
     
     <!-- Total Unit Card -->
-    <div class="stat-card bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-2xl shadow-lg p-6">
+    <div class="stat-card bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-purple-100 text-sm font-semibold uppercase tracking-wider">Total Unit</p>
-                <h3 class="text-4xl font-bold mt-2">{{ $totalUnits ?? $ratings->groupBy('unit_id')->count() }}</h3>
-                <p class="text-purple-200 text-sm mt-2 flex items-center">
-                    <i class="fas fa-building mr-1"></i>
+                <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Unit</p>
+                <h3 class="text-3xl font-bold text-[#151c27] mt-2">{{ $totalUnits ?? $ratings->groupBy('unit_id')->count() }}</h3>
+                <p class="text-slate-400 text-xs mt-2 flex items-center">
+                    <span class="material-symbols-outlined text-xs mr-1">apartment</span>
                     unit layanan
                 </p>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-building"></i>
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#F45B26] text-2xl">corporate_fare</span>
             </div>
         </div>
     </div>
     
     <!-- Rating Tertinggi Card -->
-    <div class="stat-card bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-2xl shadow-lg p-6">
+    <div class="stat-card bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-yellow-100 text-sm font-semibold uppercase tracking-wider">Rating Tertinggi</p>
-                <h3 class="text-4xl font-bold mt-2">{{ $highestRating }} ★</h3>
-                <p class="text-yellow-200 text-sm mt-2 flex items-center">
-                    <i class="fas fa-star mr-1"></i>
+                <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Rating Tertinggi</p>
+                <h3 class="text-3xl font-bold text-[#151c27] mt-2">{{ $highestRating }} ★</h3>
+                <p class="text-slate-400 text-xs mt-2 flex items-center">
+                    <span class="material-symbols-outlined text-xs mr-1">workspace_premium</span>
                     {{ $highestRatingCount }} rating
                 </p>
             </div>
-            <div class="stat-icon">
-                <i class="fas fa-crown"></i>
+            <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#F45B26] text-2xl">military_tech</span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Distribusi Rating -->
+<!-- Distribusi Rating & Quick Actions -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    <!-- Grafik Distribusi -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 lg:col-span-1">
-        <h3 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-chart-pie text-purple-600 mr-2"></i>
+    <!-- Distribusi Rating -->
+    <div class="bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6">
+        <h3 class="text-lg font-bold text-[#151c27] mb-4 flex items-center">
+            <span class="material-symbols-outlined text-[#F45B26] mr-2">pie_chart</span>
             Distribusi Rating
         </h3>
         
@@ -336,15 +300,15 @@
         <div class="mb-4">
             <div class="flex items-center justify-between mb-1">
                 <div class="flex items-center">
-                    <span class="text-yellow-400 mr-2">{{ $star }} ★</span>
-                    <span class="text-sm text-gray-600">{{ $ratingCounts[$star] }} rating</span>
+                    <span class="text-[#F45B26] mr-2 font-bold">{{ $star }} ★</span>
+                    <span class="text-sm text-slate-500">{{ $ratingCounts[$star] }} rating</span>
                 </div>
-                <span class="text-sm font-semibold text-gray-700">
+                <span class="text-sm font-semibold text-slate-700">
                     {{ $totalRatingsCount > 0 ? round(($ratingCounts[$star] / $totalRatingsCount) * 100) : 0 }}%
                 </span>
             </div>
             <div class="rating-progress">
-                <div class="rating-progress-bar bg-gradient-to-r from-yellow-400 to-yellow-500" 
+                <div class="rating-progress-bar" 
                      style="width: {{ $totalRatingsCount > 0 ? ($ratingCounts[$star] / $totalRatingsCount) * 100 : 0 }}%"></div>
             </div>
         </div>
@@ -352,44 +316,44 @@
     </div>
     
     <!-- Quick Actions -->
-    <div class="bg-white rounded-2xl shadow-lg p-6 lg:col-span-2">
-        <h3 class="text-lg font-semibold mb-4 flex items-center">
-            <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+    <div class="bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6 lg:col-span-2">
+        <h3 class="text-lg font-bold text-[#151c27] mb-4 flex items-center">
+            <span class="material-symbols-outlined text-[#F45B26] mr-2">bolt</span>
             Aksi Cepat
         </h3>
         
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div class="quick-action text-center" onclick="window.location.href='{{ route('admin.units') }}'">
-                <div class="bg-purple-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
-                    <i class="fas fa-building text-purple-600 text-xl"></i>
+                <div class="bg-orange-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <span class="material-symbols-outlined text-[#F45B26] text-2xl">business</span>
                 </div>
-                <span class="text-sm font-semibold text-gray-700">Kelola Unit</span>
+                <span class="text-sm font-semibold text-slate-700">Kelola Unit</span>
             </div>
             
             <div class="quick-action text-center" onclick="window.location.href='#latest-ratings'">
-                <div class="bg-blue-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
-                    <i class="fas fa-star text-blue-600 text-xl"></i>
+                <div class="bg-orange-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <span class="material-symbols-outlined text-[#F45B26] text-2xl" style="font-variation-settings: 'FILL' 1;">star</span>
                 </div>
-                <span class="text-sm font-semibold text-gray-700">Rating Baru</span>
+                <span class="text-sm font-semibold text-slate-700">Rating Baru</span>
             </div>
             
             <div class="quick-action text-center" onclick="refreshData()">
-                <div class="bg-yellow-100 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
-                    <i class="fas fa-sync-alt text-yellow-600 text-xl"></i>
+                <div class="bg-orange-50 w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <span class="material-symbols-outlined text-[#F45B26] text-2xl">refresh</span>
                 </div>
-                <span class="text-sm font-semibold text-gray-700">Refresh</span>
+                <span class="text-sm font-semibold text-slate-700">Refresh</span>
             </div>
         </div>
         
         <!-- Informasi Tambahan -->
-        <div class="mt-6 p-4 bg-blue-50 rounded-xl">
+        <div class="mt-6 p-4 bg-orange-50 rounded-xl">
             <div class="flex items-center space-x-3">
-                <div class="bg-blue-500 w-10 h-10 rounded-lg flex items-center justify-center text-white">
-                    <i class="fas fa-info-circle"></i>
+                <div class="bg-[#F45B26] w-10 h-10 rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-lg">info</span>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Total unit yang telah menerima rating:</p>
-                    <p class="text-lg font-bold text-blue-600">{{ $ratings->groupBy('unit_id')->count() }} Unit</p>
+                    <p class="text-sm text-slate-600">Total unit yang telah menerima rating:</p>
+                    <p class="text-lg font-bold text-[#F45B26]">{{ $ratings->groupBy('unit_id')->count() }} Unit</p>
                 </div>
             </div>
         </div>
@@ -397,66 +361,57 @@
 </div>
 
 <!-- Daftar Rating dengan Filter -->
-<div class="bg-white rounded-2xl shadow-lg p-6" id="latest-ratings">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-        <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+<div class="bg-white rounded-xl border border-[#E5E7EB] shadow-[0px_20px_40px_rgba(21,28,39,0.04)] p-6" id="latest-ratings">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <h2 class="text-2xl font-bold text-[#151c27]">
             Daftar Rating
         </h2>
         
         <!-- Filter Buttons -->
-        <div class="flex space-x-2 mt-3 md:mt-0 overflow-x-auto pb-2">
-            <button class="filter-btn active px-4 py-2 text-sm font-semibold" data-filter="all">
-                Semua
-            </button>
-            <button class="filter-btn px-4 py-2 text-sm font-semibold" data-filter="4">
-                4 ★
-            </button>
-            <button class="filter-btn px-4 py-2 text-sm font-semibold" data-filter="3">
-                3 ★
-            </button>
-            <button class="filter-btn px-4 py-2 text-sm font-semibold" data-filter="2">
-                2 ★
-            </button>
-            <button class="filter-btn px-4 py-2 text-sm font-semibold" data-filter="1">
-                1 ★
-            </button>
-            <button class="filter-btn px-4 py-2 text-sm font-semibold" data-filter="unreplied">
-                <i class="far fa-comment mr-1"></i>Belum Dibalas
+        <div class="flex flex-wrap gap-2">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="4">4 ★</button>
+            <button class="filter-btn" data-filter="3">3 ★</button>
+            <button class="filter-btn" data-filter="2">2 ★</button>
+            <button class="filter-btn" data-filter="1">1 ★</button>
+            <button class="filter-btn" data-filter="unreplied">
+                <span class="material-symbols-outlined text-sm mr-1">chat</span>
+                Belum Dibalas
             </button>
         </div>
     </div>
     
     <div class="space-y-4" id="ratings-container">
         @forelse($ratings as $rating)
-        <div class="rating-item bg-gray-50 rounded-xl p-6 border border-gray-200" 
+        <div class="rating-item p-6" 
              data-rating="{{ $rating->rating }}"
              data-replied="{{ $rating->balasans->count() > 0 ? 'yes' : 'no' }}">
             
             <!-- Header Rating -->
-            <div class="flex flex-col md:flex-row justify-between items-start mb-4">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-4 gap-4">
                 <div class="flex items-start space-x-4">
-                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                    <div class="bg-[#F45B26] w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
                         {{ strtoupper(substr($rating->nama, 0, 2)) }}
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-800">{{ $rating->nama }}</h3>
+                        <h3 class="font-bold text-[#151c27]">{{ $rating->nama }}</h3>
                         <div class="flex items-center flex-wrap gap-2 mt-1">
-                            <span class="text-sm text-gray-500">
-                                <i class="far fa-envelope mr-1"></i>{{ $rating->email }}
+                            <span class="text-sm text-slate-500 flex items-center">
+                                <span class="material-symbols-outlined text-sm mr-1">email</span>
+                                {{ $rating->email }}
                             </span>
-                            <span class="text-sm text-gray-400">•</span>
-                            <span class="text-sm text-gray-500 flex items-center">
-                                <i class="far fa-calendar mr-1"></i>
-                                <!-- Tampilan waktu dalam WIB -->
-                                {{ $rating->created_at->timezone('Asia/Jakarta')->isoFormat('DD MMM Y HH:mm') }} 
-                                <span class="ml-1 text-xs bg-gray-200 px-1.5 py-0.5 rounded">WIB</span>
+                            <span class="text-slate-300">•</span>
+                            <span class="text-sm text-slate-500 flex items-center">
+                                <span class="material-symbols-outlined text-sm mr-1">calendar_today</span>
+                                {{ $rating->created_at->timezone('Asia/Jakarta')->isoFormat('DD MMM Y HH:mm') }}
+                                <span class="ml-1 text-xs bg-slate-100 px-1.5 py-0.5 rounded-full">WIB</span>
                             </span>
                         </div>
-                        <div class="flex items-center mt-2 space-x-2">
-                            <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-xs font-semibold">
+                        <div class="flex items-center mt-2 space-x-2 flex-wrap gap-2">
+                            <span class="bg-orange-50 text-[#F45B26] px-3 py-1 rounded-full text-xs font-semibold">
                                 {{ $rating->unit->nama_unit }}
                             </span>
-                            <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-semibold">
+                            <span class="bg-orange-50 text-[#F45B26] px-3 py-1 rounded-full text-xs font-semibold">
                                 {{ $rating->pelayanan->nama_pelayanan }}
                             </span>
                         </div>
@@ -464,7 +419,7 @@
                 </div>
                 
                 <!-- Rating Badge -->
-                <div class="mt-3 md:mt-0">
+                <div>
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold text-white
                         @if($rating->rating == 4) badge-rating-4
                         @elseif($rating->rating == 3) badge-rating-3
@@ -477,26 +432,25 @@
             
             <!-- Komentar -->
             <div class="mb-4 pl-16">
-                <p class="text-gray-700 italic">"{{ $rating->komentar }}"</p>
+                <p class="text-slate-600 italic">"{{ $rating->komentar }}"</p>
             </div>
             
             <!-- Riwayat Balasan -->
             @foreach($rating->balasans as $balasan)
-            <div class="admin-reply ml-16 mb-4 p-4 rounded-xl">
+            <div class="admin-reply ml-16 mb-4 p-4">
                 <div class="flex items-start space-x-3">
-                    <div class="bg-purple-600 w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+                    <div class="bg-[#F45B26] w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold">
                         A
                     </div>
                     <div class="flex-1">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="font-semibold text-purple-600">Admin</span>
-                            <span class="text-xs text-gray-500 flex items-center">
-                                <!-- Waktu balasan dalam WIB -->
+                        <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
+                            <span class="font-semibold text-[#F45B26]">Admin</span>
+                            <span class="text-xs text-slate-400 flex items-center">
                                 {{ $balasan->created_at->timezone('Asia/Jakarta')->diffForHumans() }}
                                 <span class="ml-1 text-xs">(WIB)</span>
                             </span>
                         </div>
-                        <p class="text-gray-700">{{ $balasan->balasan }}</p>
+                        <p class="text-slate-700">{{ $balasan->balasan }}</p>
                     </div>
                 </div>
             </div>
@@ -508,17 +462,17 @@
                 <div class="flex flex-col space-y-3">
                     <textarea name="balasan" rows="2" 
                               placeholder="Tulis balasan Anda di sini..." 
-                              class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-purple-400 focus:outline-none transition duration-300"
+                              class="w-full px-4 py-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-[#F45B26]/20 transition-all placeholder:text-slate-400"
                               required></textarea>
                     <div class="flex justify-end space-x-2">
                         <button type="button" 
                                 onclick="this.closest('form').reset()"
-                                class="px-4 py-2 text-gray-600 hover:text-gray-800 transition duration-300">
+                                class="px-4 py-2 text-slate-500 hover:text-slate-700 transition duration-300 text-sm font-semibold">
                             Batal
                         </button>
                         <button type="submit" 
-                                class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:shadow-lg transition duration-300">
-                            <i class="fas fa-paper-plane"></i>
+                                class="bg-[#F45B26] hover:bg-[#d1430b] text-white px-6 py-2 rounded-full font-semibold flex items-center space-x-2 transition-all">
+                            <span class="material-symbols-outlined text-sm">send</span>
                             <span>Kirim Balasan</span>
                         </button>
                     </div>
@@ -528,8 +482,8 @@
         @empty
         <div class="text-center py-12">
             <div class="text-6xl mb-4">📊</div>
-            <p class="text-gray-500 text-lg">Belum ada rating</p>
-            <p class="text-sm text-gray-400">Rating akan muncul di sini setelah pengguna memberikan penilaian</p>
+            <p class="text-slate-500 text-lg">Belum ada rating</p>
+            <p class="text-sm text-slate-400">Rating akan muncul di sini setelah pengguna memberikan penilaian</p>
         </div>
         @endforelse
     </div>
@@ -545,17 +499,14 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // FUNGSI SEDERHANA TAPI PASTI JALAN - UPDATE JAM SETIAP DETIK
+    // REAL-TIME CLOCK FUNCTION
     function updateClock() {
-        // Buat object date baru setiap detik
         const now = new Date();
         
-        // Ambil jam dalam format WIB
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
         
-        // Format tanggal Indonesia
         const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         
@@ -564,34 +515,34 @@
         const month = months[now.getMonth()];
         const year = now.getFullYear();
         
-        // Update elemen HTML
-        document.getElementById('realtime-clock').innerHTML = `${hours}:${minutes}:${seconds} <span style="font-size:1rem; margin-left:5px;">WIB</span>`;
-        document.getElementById('realtime-date').innerHTML = `${dayName}, ${date} ${month} ${year}`;
+        const clockElement = document.getElementById('realtime-clock');
+        const dateElement = document.getElementById('realtime-date');
         
-        // Log untuk debugging (bisa dihapus)
-        console.log('Clock updated:', hours, minutes, seconds);
+        if (clockElement) {
+            clockElement.innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+        if (dateElement) {
+            dateElement.innerHTML = `${dayName}, ${date} ${month} ${year}`;
+        }
     }
     
-    // JALANKAN FUNGSI UPDATE PERTAMA KALI
+    // Initialize clock
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('Halaman dimuat, memulai real-time clock...');
-        updateClock(); // Update segera
-        
-        // SET INTERVAL 1 DETIK - INI YANG MEMBUAT DETIK BERJALAN TERUS
+        updateClock();
         setInterval(updateClock, 1000);
     });
     
     // Filter functionality
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.remove('active', 'text-purple-600');
+                b.classList.remove('active');
             });
-            this.classList.add('active', 'text-purple-600');
+            this.classList.add('active');
             
             const filter = this.dataset.filter;
             const ratings = document.querySelectorAll('.rating-item');
+            let visibleCount = 0;
             
             ratings.forEach(rating => {
                 let show = false;
@@ -606,21 +557,13 @@
                 
                 if (show) {
                     rating.style.display = 'block';
-                    setTimeout(() => {
-                        rating.style.opacity = '1';
-                        rating.style.transform = 'translateX(0)';
-                    }, 50);
+                    visibleCount++;
                 } else {
-                    rating.style.opacity = '0';
-                    rating.style.transform = 'translateX(-10px)';
-                    setTimeout(() => {
-                        rating.style.display = 'none';
-                    }, 300);
+                    rating.style.display = 'none';
                 }
             });
             
-            // Show total filtered count
-            const visibleCount = Array.from(ratings).filter(r => r.style.display !== 'none').length;
+            // Show toast notification
             Swal.fire({
                 icon: 'info',
                 title: 'Filter Diterapkan',
@@ -633,7 +576,7 @@
         });
     });
     
-    // Refresh data
+    // Refresh data function
     function refreshData() {
         Swal.fire({
             title: 'Memperbarui Data...',
@@ -661,20 +604,6 @@
         toast: true
     });
     @endif
-    
-    // Smooth scroll untuk anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
     
     // Auto-resize textarea
     document.querySelectorAll('textarea[name="balasan"]').forEach(textarea => {

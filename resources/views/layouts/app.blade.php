@@ -9,74 +9,72 @@
     
     <title>@yield('title', 'Rating Kampus - Tingkatkan Kualitas Layanan Bersama')</title>
     
-    <!-- Tailwind CSS dengan custom colors -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
-    <!-- Font Awesome 6 -->
+    <!-- Google Fonts - Plus Jakarta Sans (modern) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    
+    <!-- Font Awesome 6 (opsional untuk fallback) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Google Fonts - Poppins untuk tampilan modern -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Animate.css untuk animasi tambahan -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
         * {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f9f9ff;
             min-height: 100vh;
-            position: relative;
         }
         
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,170.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.1;
-            pointer-events: none;
-        }
-        
+        /* Glass Navigation */
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0px 20px 40px rgba(21, 28, 39, 0.04);
         }
         
+        /* Modern Link Style */
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
+            color: #64748b;
         }
         
-        .nav-link::after {
+        .nav-link:hover {
+            color: #F45B26;
+        }
+        
+        .nav-link.active {
+            color: #F45B26;
+            font-weight: 600;
+        }
+        
+        .nav-link.active::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
             width: 100%;
+            height: 2px;
+            background: #F45B26;
+            border-radius: 2px;
         }
         
+        /* Alert Styles */
         .alert {
             animation: slideInDown 0.5s ease-out;
-            border-radius: 15px;
+            border-radius: 1rem;
             border-left-width: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 20px 40px rgba(21, 28, 39, 0.04);
         }
         
         @keyframes slideInDown {
@@ -90,118 +88,43 @@
             }
         }
         
-        .floating-shape {
-            position: fixed;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            right: -150px;
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
-            animation: float 20s infinite;
-        }
-        
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -100px;
-            left: -100px;
-            background: linear-gradient(45deg, #48dbfb, #1dd1a1);
-            animation: float 15s infinite reverse;
-        }
-        
-        .shape-3 {
-            width: 150px;
-            height: 150px;
-            bottom: 50%;
-            right: 10%;
-            background: linear-gradient(45deg, #f368e0, #ff9ff3);
-            animation: float 12s infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -50px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.5);
-        }
-        
-        .btn-gradient::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(30deg) translate(-20%, 0);
-            transition: transform 0.5s ease;
-        }
-        
-        .btn-gradient:hover::after {
-            transform: rotate(30deg) translate(30%, -20%);
-        }
-        
+        /* User Avatar */
         .user-avatar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #F45B26;
             border: 2px solid white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
         
         .user-avatar:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(244, 91, 38, 0.3);
         }
         
+        /* Logout Button */
         .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(244, 91, 38, 0.1);
+            border: 1px solid rgba(244, 91, 38, 0.2);
+            color: #F45B26;
             transition: all 0.3s ease;
         }
         
         .logout-btn:hover {
-            background: rgba(255, 71, 87, 0.9);
-            border-color: rgba(255, 71, 87, 0.5);
+            background: #F45B26;
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 5px 15px rgba(244, 91, 38, 0.3);
         }
         
+        /* Main Container Animation */
         .main-container {
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 0.6s ease-out;
         }
         
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -209,11 +132,11 @@
             }
         }
         
-        /* Loading animation untuk button */
+        /* Loading Animation */
         .btn-loading {
             position: relative;
             pointer-events: none;
-            opacity: 0.8;
+            opacity: 0.7;
         }
         
         .btn-loading::before {
@@ -233,111 +156,126 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #F45B26;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1430b;
+        }
     </style>
     
     @stack('styles')
 </head>
-<body class="antialiased">
-    <!-- Floating Shapes untuk background effect -->
-    <div class="floating-shape shape-1"></div>
-    <div class="floating-shape shape-2"></div>
-    <div class="floating-shape shape-3"></div>
+<body class="bg-background text-on-surface antialiased">
     
-    <!-- Modern Navigation -->
-    <nav class="glass-nav text-gray-800 p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <!-- Logo dengan animasi -->
-            <a href="{{ route('home') }}" class="flex items-center space-x-2 group">
-                <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition duration-300">
-                    <i class="fas fa-star text-white text-xl"></i>
-                </div>
-                <div>
-                    <span class="text-2xl font-bold gradient-text">Rating Kampus</span>
-                    <span class="block text-xs text-gray-500">Tingkatkan Kualitas Layanan</span>
-                </div>
-            </a>
+    <!-- Modern Navigation - CampusPulse Style -->
+    <nav class="glass-nav fixed top-0 w-full z-50">
+        <div class="flex justify-between items-center px-8 h-16 w-full mx-auto max-w-[1440px]">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-8">
+                
+                    <div class="w-9 h-9 bg-[#F45B26] rounded-xl flex items-center justify-center transform group-hover:scale-110 transition duration-300 shadow-md">
+                        <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">home</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-[#F45B26]">My Rating</span>
+                </a>
+                
+                
+            </div>
             
             <!-- User Menu -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center gap-6">
                 @auth
-                    <div class="flex items-center space-x-3">
+                    <div class="flex items-center gap-4">
                         <!-- User Info -->
-                        <div class="text-right hidden md:block">
-                            <p class="font-semibold text-gray-800">{{ Auth::user()->name }}</p>
-                            <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                        <div class="text-right hidden sm:block">
+                            <p class="text-sm font-bold text-slate-900 leading-none">{{ Auth::user()->name }}</p>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">{{ Auth::user()->email }}</p>
                         </div>
                         
-                        <!-- Avatar dengan inisial -->
-                        <div class="user-avatar w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                        <!-- Avatar -->
+                        <div class="user-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm">
                             {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
                         </div>
                         
-                        <!-- Logout Button dengan konfirmasi -->
+                        <!-- Logout Button -->
                         <form method="POST" action="{{ route('logout') }}" class="inline" id="logout-form">
                             @csrf
                             <button type="button" onclick="confirmLogout()" 
-                                    class="logout-btn text-white px-5 py-2.5 rounded-xl font-semibold flex items-center space-x-2 transition duration-300">
-                                <i class="fas fa-sign-out-alt"></i>
+                                    class="logout-btn px-4 py-2 rounded-full font-semibold text-sm flex items-center space-x-2 transition duration-300">
+                                <span class="material-symbols-outlined text-sm">logout</span>
                                 <span class="hidden md:inline">Keluar</span>
                             </button>
                         </form>
                     </div>
                 @else
                     <a href="{{ route('login') }}" 
-                       class="btn-gradient text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 shadow-lg">
-                        <i class="fas fa-lock"></i>
+                       class="bg-[#F45B26] hover:bg-[#d1430b] text-white px-5 py-2.5 rounded-full font-semibold flex items-center space-x-2 shadow-lg shadow-[#F45B26]/20 transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-sm">lock</span>
                         <span>Login Admin</span>
-                        <i class="fas fa-arrow-right text-sm"></i>
                     </a>
                 @endauth
             </div>
         </div>
     </nav>
 
-    <!-- Main Content dengan container yang lebih menarik -->
-    <main class="container mx-auto px-4 py-8 main-container">
-        <!-- Alert Messages dengan icon -->
+    <!-- Main Content with Top Padding for Fixed Nav -->
+    <main class="pt-24 pb-16 px-8 max-w-[1440px] mx-auto main-container">
+        <!-- Alert Messages -->
         @if(session('success'))
             <div class="alert bg-green-50 border-l-4 border-green-500 text-green-700 px-6 py-4 rounded-xl mb-6 flex items-center shadow-lg" role="alert">
-                <div class="bg-green-500 rounded-full p-2 mr-4">
-                    <i class="fas fa-check-circle text-white text-xl"></i>
+                <div class="bg-green-500 rounded-full p-1.5 mr-4">
+                    <span class="material-symbols-outlined text-white text-sm">check_circle</span>
                 </div>
                 <div class="flex-1">
-                    <p class="font-bold">Berhasil!</p>
-                    <p>{{ session('success') }}</p>
+                    <p class="font-bold text-sm">Berhasil!</p>
+                    <p class="text-sm">{{ session('success') }}</p>
                 </div>
                 <button onclick="this.parentElement.remove()" class="text-green-700 hover:text-green-900">
-                    <i class="fas fa-times"></i>
+                    <span class="material-symbols-outlined text-sm">close</span>
                 </button>
             </div>
         @endif
 
         @if(session('error'))
             <div class="alert bg-red-50 border-l-4 border-red-500 text-red-700 px-6 py-4 rounded-xl mb-6 flex items-center shadow-lg" role="alert">
-                <div class="bg-red-500 rounded-full p-2 mr-4">
-                    <i class="fas fa-exclamation-triangle text-white text-xl"></i>
+                <div class="bg-red-500 rounded-full p-1.5 mr-4">
+                    <span class="material-symbols-outlined text-white text-sm">error</span>
                 </div>
                 <div class="flex-1">
-                    <p class="font-bold">Oops!</p>
-                    <p>{{ session('error') }}</p>
+                    <p class="font-bold text-sm">Oops!</p>
+                    <p class="text-sm">{{ session('error') }}</p>
                 </div>
                 <button onclick="this.parentElement.remove()" class="text-red-700 hover:text-red-900">
-                    <i class="fas fa-times"></i>
+                    <span class="material-symbols-outlined text-sm">close</span>
                 </button>
             </div>
         @endif
 
         @if(session('info'))
             <div class="alert bg-blue-50 border-l-4 border-blue-500 text-blue-700 px-6 py-4 rounded-xl mb-6 flex items-center shadow-lg" role="alert">
-                <div class="bg-blue-500 rounded-full p-2 mr-4">
-                    <i class="fas fa-info-circle text-white text-xl"></i>
+                <div class="bg-blue-500 rounded-full p-1.5 mr-4">
+                    <span class="material-symbols-outlined text-white text-sm">info</span>
                 </div>
                 <div class="flex-1">
-                    <p class="font-bold">Informasi</p>
-                    <p>{{ session('info') }}</p>
+                    <p class="font-bold text-sm">Informasi</p>
+                    <p class="text-sm">{{ session('info') }}</p>
                 </div>
                 <button onclick="this.parentElement.remove()" class="text-blue-700 hover:text-blue-900">
-                    <i class="fas fa-times"></i>
+                    <span class="material-symbols-outlined text-sm">close</span>
                 </button>
             </div>
         @endif
@@ -345,12 +283,12 @@
         @if($errors->any())
             <div class="alert bg-yellow-50 border-l-4 border-yellow-500 text-yellow-700 px-6 py-4 rounded-xl mb-6 shadow-lg">
                 <div class="flex items-center mb-2">
-                    <div class="bg-yellow-500 rounded-full p-2 mr-4">
-                        <i class="fas fa-exclamation-circle text-white text-xl"></i>
+                    <div class="bg-yellow-500 rounded-full p-1.5 mr-4">
+                        <span class="material-symbols-outlined text-white text-sm">warning</span>
                     </div>
-                    <p class="font-bold">Perhatikan!</p>
+                    <p class="font-bold text-sm">Perhatikan!</p>
                 </div>
-                <ul class="list-disc list-inside ml-14">
+                <ul class="list-disc list-inside ml-12 text-sm">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -358,32 +296,29 @@
             </div>
         @endif
 
-        <!-- Content Area dengan efek fade -->
-        <div class="animate__animated animate__fadeIn">
-            @yield('content')
-        </div>
+        <!-- Content Area -->
+        @yield('content')
     </main>
 
-    <!-- Footer sederhana -->
-    <footer class="text-center py-6 text-white/50 text-sm">
+    <!-- Simple Footer -->
+    <footer class="text-center py-6 text-slate-400 text-xs border-t border-slate-100">
         <p>&copy; {{ date('Y') }} Rating Kampus. Bersama Tingkatkan Kualitas Layanan.</p>
     </footer>
 
     <!-- Scripts -->
     <script>
-        // Fungsi konfirmasi logout dengan animasi
+        // Confirmation logout with SweetAlert
         function confirmLogout() {
             Swal.fire({
                 title: 'Konfirmasi Logout',
                 text: 'Apakah Anda yakin ingin keluar?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#667eea',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#F45B26',
+                cancelButtonColor: '#64748b',
                 confirmButtonText: 'Ya, Logout',
                 cancelButtonText: 'Batal',
                 background: 'white',
-                backdrop: `rgba(102, 126, 234, 0.4)`,
                 customClass: {
                     popup: 'rounded-2xl shadow-2xl'
                 }
@@ -394,17 +329,20 @@
             });
         }
 
-        // Smooth scroll untuk anchor links
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Loading state untuk form submission
+        // Loading state for form submission
         document.querySelectorAll('form').forEach(form => {
             form.addEventListener('submit', function() {
                 const submitBtn = this.querySelector('button[type="submit"]');
@@ -415,34 +353,19 @@
             });
         });
 
-        // Auto-hide alerts setelah 5 detik
+        // Auto-hide alerts after 5 seconds
         document.querySelectorAll('.alert').forEach(alert => {
             setTimeout(() => {
-                if(alert) {
+                if(alert && alert.parentElement) {
                     alert.style.transition = 'opacity 0.5s ease';
                     alert.style.opacity = '0';
-                    setTimeout(() => alert.remove(), 500);
+                    setTimeout(() => {
+                        if(alert.parentElement) alert.remove();
+                    }, 500);
                 }
             }, 5000);
         });
-
-        // Menambahkan efek parallax pada floating shapes
-        document.addEventListener('mousemove', function(e) {
-            const shapes = document.querySelectorAll('.floating-shape');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 20;
-                const x = (mouseX * speed) - (speed / 2);
-                const y = (mouseY * speed) - (speed / 2);
-                shape.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
     </script>
-
-    <!-- SweetAlert2 untuk notifikasi yang lebih cantik -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     @stack('scripts')
 </body>
